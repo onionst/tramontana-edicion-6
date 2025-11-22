@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Producto - Ejercicios Consola</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #34495e;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .feature-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .feature-item:hover {
+            background: #f8f9fa;
+        }
+
+        .feature-info {
+            flex: 1;
+        }
+
+        .feature-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .feature-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-planning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-development {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-testing {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-deployed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .metrics-table th,
+        .metrics-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .metrics-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .metrics-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: #3498db;
+        }
+
+        .user-card {
+            display: inline-block;
+            padding: 15px 20px;
+            margin: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .user-role {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .user-email {
+            color: #95a5a6;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .actions {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard de Producto Digital</h1>
+        <p class="subtitle">Ejercicios prácticos con la consola del navegador</p>
+
+        <div class="alert alert-info" id="notification">
+            Bienvenido al dashboard. Abre la consola del navegador para comenzar los ejercicios.
+        </div>
+
+        <div class="section">
+            <h2>Features en Desarrollo</h2>
+            <ul class="features-list" id="featuresList">
+                <li class="feature-item" data-feature-id="F001" data-priority="high" data-team="backend">
+                    <div class="feature-info">
+                        <div class="feature-name">Sistema de Autenticación OAuth</div>
+                        <span class="feature-status status-development">En Desarrollo</span>
+                    </div>
+                    <div data-progress="65">65%</div>
+                </li>
+                <li class="feature-item" data-feature-id="F002" data-priority="medium" data-team="frontend">
+                    <div class="feature-info">
+                        <div class="feature-name">Dashboard de Analíticas</div>
+                        <span class="feature-status status-planning">Planificación</span>
+                    </div>
+                    <div data-progress="20">20%</div>
+                </li>
+                <li class="feature-item" data-feature-id="F003" data-priority="high" data-team="frontend">
+                    <div class="feature-info">
+                        <div class="feature-name">Notificaciones Push</div>
+                        <span class="feature-status status-testing">Testing</span>
+                    </div>
+                    <div data-progress="85">85%</div>
+                </li>
+                <li class="feature-item" data-feature-id="F004" data-priority="low" data-team="backend">
+                    <div class="feature-info">
+                        <div class="feature-name">API de Exportación de Datos</div>
+                        <span class="feature-status status-deployed">Desplegado</span>
+                    </div>
+                    <div data-progress="100">100%</div>
+                </li>
+                <li class="feature-item" data-feature-id="F005" data-priority="high" data-team="design">
+                    <div class="feature-info">
+                        <div class="feature-name">Rediseño de Onboarding</div>
+                        <span class="feature-status status-development">En Desarrollo</span>
+                    </div>
+                    <div data-progress="45">45%</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Métricas del Producto</h2>
+            <table class="metrics-table" id="metricsTable">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                        <th>Cambio</th>
+                        <th>Periodo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-metric="mau" data-value="45230">
+                        <td>Usuarios Activos Mensuales (MAU)</td>
+                        <td class="metric-value">45,230</td>
+                        <td style="color: #27ae60;">+12.5%</td>
+                        <td>Últimos 30 días</td>
+                    </tr>
+                    <tr data-metric="dau" data-value="12450">
+                        <td>Usuarios Activos Diarios (DAU)</td>
+                        <td class="metric-value">12,450</td>
+                        <td style="color: #27ae60;">+8.3%</td>
+                        <td>Hoy</td>
+                    </tr>
+                    <tr data-metric="retention" data-value="68.5">
+                        <td>Tasa de Retención</td>
+                        <td class="metric-value">68.5%</td>
+                        <td style="color: #27ae60;">+3.2%</td>
+                        <td>7 días</td>
+                    </tr>
+                    <tr data-metric="conversion" data-value="4.2">
+                        <td>Tasa de Conversión</td>
+                        <td class="metric-value">4.2%</td>
+                        <td style="color: #e74c3c;">-0.5%</td>
+                        <td>Últimos 30 días</td>
+                    </tr>
+                    <tr data-metric="churn" data-value="2.8">
+                        <td>Tasa de Churn</td>
+                        <td class="metric-value">2.8%</td>
+                        <td style="color: #27ae60;">-1.2%</td>
+                        <td>Último mes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Equipo de Producto</h2>
+            <div id="teamMembers">
+                <div class="user-card" data-user-id="U001" data-department="product" data-seniority="senior">
+                    <div class="user-name">Ana García</div>
+                    <div class="user-role">Product Manager</div>
+                    <div class="user-email">ana.garcia@empresa.com</div>
+                </div>
+                <div class="user-card" data-user-id="U002" data-department="engineering" data-seniority="senior">
+                    <div class="user-name">Carlos Ruiz</div>
+                    <div class="user-role">Lead Developer</div>
+                    <div class="user-email">carlos.ruiz@empresa.com</div>
+                </div>
+                <div class="user-card" data-user-id="U003" data-department="design" data-seniority="mid">
+                    <div class="user-name">María López</div>
+                    <div class="user-role">UX Designer</div>
+                    <div class="user-email">maria.lopez@empresa.com</div>
+                </div>
+                <div class="user-card" data-user-id="U004" data-department="analytics" data-seniority="mid">
+                    <div class="user-name">Jorge Martínez</div>
+                    <div class="user-role">Data Analyst</div>
+                    <div class="user-email">jorge.martinez@empresa.com</div>
+                </div>
+                <div class="user-card" data-user-id="U005" data-department="engineering" data-seniority="junior">
+                    <div class="user-name">Laura Fernández</div>
+                    <div class="user-role">Frontend Developer</div>
+                    <div class="user-email">laura.fernandez@empresa.com</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Acciones</h2>
+            <div class="actions">
+                <button class="btn-primary" id="btnRefresh">Refrescar Datos</button>
+                <button class="btn-secondary" id="btnExport">Exportar Métricas</button>
+                <button class="btn-secondary" id="btnSettings">Configuración</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initial data stored in localStorage
+        const initialData = {
+            lastVisit: new Date().toISOString(),
+            userPreferences: {
+                theme: 'light',
+                notifications: true,
+                language: 'es'
+            },
+            sessionInfo: {
+                startTime: new Date().toISOString(),
+                pageViews: 1
+            }
+        };
+
+        // Save initial data if it doesn't exist
+        if (!localStorage.getItem('productDashboard')) {
+            localStorage.setItem('productDashboard', JSON.stringify(initialData));
+        }
+
+        // Simulate interactions
+        document.getElementById('btnRefresh').addEventListener('click', function() {
+            const notification = document.getElementById('notification');
+            notification.textContent = 'Data updated successfully';
+            notification.classList.add('show');
+            setTimeout(() => notification.classList.remove('show'), 3000);
+        });
+
+        document.getElementById('btnExport').addEventListener('click', function() {
+            console.log('Exporting metrics...');
+            alert('Export functionality available in console');
+        });
+
+        document.getElementById('btnSettings').addEventListener('click', function() {
+            console.log('Opening settings...');
+            alert('Use the console to modify preferences');
+        });
+
+        // Display welcome message in console
+        console.log('%cWelcome to the browser console exercises!', 'font-size: 20px; color: #3498db; font-weight: bold;');
+        console.log('%cOpen the index-dom.md file to see the instructions', 'font-size: 14px; color: #2c3e50;');
+        console.log('---');
+        console.log('Tip: All elements have data-* attributes you can explore');
+    </script>
+</body>
+</html>
