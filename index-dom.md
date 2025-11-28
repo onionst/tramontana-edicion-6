@@ -299,7 +299,7 @@ features.forEach(feature => {
         name: feature.querySelector('.feature-name').textContent,
         priority: feature.dataset.priority,
         team: feature.dataset.team,
-        progress: feature.dataset.progress
+        progress: feature.querySelector('[data-progress]').dataset.progress
     };
     featuresData.push(data);
 });
